@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -6,291 +5,532 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DarkTarget Lab</title>
   <style>
+    :root{
+      --bg:#000000;
+      --bg-soft:#080808;
+      --bg-input:#0d0d12;
+      --text:#ffffff;
+      --muted:#d5d5df;
+      --muted-2:#cfcfe6;
+      --border:rgba(255, 31, 31, 0.55);
+      --accent:#ff1f1f;
+      --accent-soft:rgba(255, 31, 31, 0.15);
+      --radius:20px;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: Arial, sans-serif;
-      background: #000000;
-      color: #ffffff;
+      background:
+        radial-gradient(circle at top right, rgba(255, 31, 31, 0.24), transparent 28%),
+        linear-gradient(180deg, #010101 0%, #000 100%);
+      color: var(--text);
       line-height: 1.6;
+      overflow-x: hidden;
     }
+
+    img { max-width: 100%; display: block; }
     a { text-decoration: none; color: inherit; }
+
     .container {
-      width: min(1120px, 92%);
+      width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
     }
+
+    .section { padding: 84px 0; }
+
+    .section-title {
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.12;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      color: var(--muted-2);
+      max-width: 760px;
+      margin-bottom: 34px;
+      font-size: 17px;
+    }
+
     .btn {
-      display: inline-block;
-      padding: 14px 24px;
-      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 14px 22px;
+      border-radius: 14px;
       font-weight: 700;
-      transition: 0.2s ease;
-      border: none;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      border: 1px solid transparent;
       cursor: pointer;
+      text-align: center;
     }
+
+    .btn:hover { transform: translateY(-2px); }
+
     .btn-primary {
-      background: #ff1f1f;
-      color: white;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 14px 34px rgba(255, 31, 31, 0.22);
     }
-    .btn-primary:hover { transform: translateY(-2px); }
+
     .btn-outline {
-      background: transparent;
-      border: 1px solid #ff1f1f;
+      background: rgba(255,255,255,0.02);
+      border-color: var(--border);
       color: #fff;
     }
-    .section {
-      padding: 72px 0;
-    }
-    .section-title {
-      font-size: 36px;
-      margin-bottom: 18px;
-    }
-    .section-subtitle {
-      color: #cfcfe6;
-      max-width: 720px;
-      margin-bottom: 36px;
-    }
+
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      background: radial-gradient(circle at top right,  rgba(255, 20, 20, 0.679), transparent 35%), #000000;
+      padding: 34px 0;
     }
+
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 40px;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: 34px;
       align-items: center;
     }
+
     .eyebrow {
-      display: inline-block;
-      padding: 8px 12px;
-      border: 1px solid  rgba(255, 20, 20, 0.679);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 1px solid var(--border);
       border-radius: 999px;
-      color: #ff1f1f;
+      color: #ffd0d0;
+      background: rgba(255, 31, 31, 0.08);
       margin-bottom: 18px;
       font-size: 14px;
+      font-weight: 700;
     }
+
     .hero h1 {
-      font-size: 56px;
-      line-height: 1.1;
+      font-size: clamp(36px, 6vw, 62px);
+      line-height: 1.02;
       margin-bottom: 18px;
+      letter-spacing: -0.03em;
+      max-width: 12ch;
     }
+
     .hero p {
-      font-size: 20px;
-      color: #d8d8e7;
+      font-size: clamp(17px, 2.2vw, 20px);
+      color: var(--muted);
       margin-bottom: 28px;
-      max-width: 620px;
+      max-width: 640px;
     }
+
     .hero-actions {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      margin-bottom: 24px;
+      margin-bottom: 26px;
     }
+
     .hero-points {
       list-style: none;
       display: grid;
-      gap: 10px;
-      color: #d7d7e3;
+      gap: 12px;
+      color: var(--muted);
+      max-width: 540px;
     }
+
+    .hero-points li {
+      position: relative;
+      padding-left: 30px;
+      min-height: 24px;
+    }
+
+    .hero-points li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
     .hero-card,
     .info-card,
     .review-card,
     .case-card,
     .step,
     .faq-item {
-      background: #080808;
-      border: 1px solid rgba(255, 20, 20, 0.679);
-      border-radius: 20px;
-      padding: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
-    .hero-card h3 { margin-bottom: 12px; }
+
+    .hero-card {
+      padding: 26px;
+      position: relative;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 130px;
+      height: 130px;
+      background: radial-gradient(circle, rgba(255,31,31,.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-card h3 {
+      margin-bottom: 8px;
+      font-size: 28px;
+      line-height: 1.15;
+    }
+
+    .hero-card .muted {
+      margin-bottom: 18px;
+      display: block;
+    }
+
     .form-group { margin-bottom: 16px; }
+
     label {
       display: block;
-      margin-bottom: 6px;
-      color: #cfcfe6;
+      margin-bottom: 7px;
+      color: var(--muted-2);
       font-size: 14px;
+      font-weight: 700;
     }
+
     input, textarea, select {
       width: 100%;
-      padding: 14px;
-      border-radius: 12px;
+      padding: 15px 16px;
+      border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.1);
-      background: #0d0d12;
+      background: var(--bg-input);
       color: #fff;
       outline: none;
+      font-size: 16px;
+      transition: border-color .2s ease, box-shadow .2s ease;
     }
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(255, 31, 31, 0.8);
+      box-shadow: 0 0 0 4px rgba(255,31,31,.12);
     }
+
+    .form-note {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted-2);
+    }
+
+    .grid-3,
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
+
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .info-card,
+    .case-card,
+    .step,
+    .faq-item {
+      padding: 24px;
+    }
+
     .info-card h3,
-    .review-card h3,
     .case-card h3,
     .step h3,
     .faq-item h3 {
       margin-bottom: 10px;
       font-size: 22px;
+      line-height: 1.2;
     }
-    .muted { color: #c8c8d8; }
+
+    .info-card p,
+    .case-card p,
+    .step p,
+    .faq-item p {
+      color: var(--muted);
+    }
+
     .check-list {
       list-style: none;
       display: grid;
-      gap: 12px;
-      margin-top: 20px;
+      gap: 14px;
     }
+
+    .check-list li {
+      position: relative;
+      padding-left: 28px;
+      color: var(--muted);
+    }
+
     .check-list li::before {
-      content: '✔ ';
-      color: #ff1f1f;
-      font-weight: bold;
+      content: '✔';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-weight: 700;
     }
-    .review-card p,
-    .case-card p,
-    .faq-item p,
-    .info-card p,
-    .step p {
-      color: #d5d5df;
-    }
+
     .case-metric {
       display: inline-block;
       margin-top: 14px;
       padding: 10px 12px;
       border-radius: 12px;
-      background: #de151524;
+      background: var(--accent-soft);
       color: #ffe5e5;
       font-weight: 700;
     }
 
-  /* ----- ЗМІНЕНО ТІЛЬКИ ВІДГУКИ ----- */
-.reviews-wrapper {
-  position: relative;
-  max-width: 1120px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
+    .reviews-shell {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 14px;
+      align-items: center;
+    }
 
-.reviews-slider {
-  overflow: hidden;
-  width: 100%;
-}
+    .reviews-slider {
+      overflow: hidden;
+      width: 100%;
+    }
 
-.reviews-row {
-  display: flex;
-  gap: 20px;
-  transition: transform 0.5s ease;
-}
+    .reviews-row {
+      display: flex;
+      gap: 20px;
+      transition: transform .45s ease;
+      will-change: transform;
+    }
 
-.review-card {
-  min-width: calc((100% - 120px) / 4);
-  max-width: calc((100% - 120px) / 4);
-  flex: 0 0 calc((100% - 120px) / 4);
-  background: transparent;
-  border: none;
-  padding: 0;
-}
+    .review-card {
+      min-width: calc((100% - 60px) / 4);
+      flex: 0 0 calc((100% - 60px) / 4);
+      padding: 10px;
+      background: rgba(255,255,255,0.01);
+    }
 
-.review-photo {
-  width: 100%;
-  height: 190px;
-  object-fit: contain;
-  border-radius: 14px;
-  display: block;
-  background: #050505;
-  border: 1px solid rgba(255, 20, 20, 0.679);
-}
+    .review-photo {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: contain;
+      border-radius: 14px;
+      background: #050505;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
 
-.review-nav {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 20, 20, 0.679);
-  background: #080808;
-  color: #ffffff;
-  font-size: 22px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
+    .review-nav {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: #080808;
+      color: #ffffff;
+      font-size: 22px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform .2s ease, background .2s ease;
+    }
 
-.review-nav:hover {
-  background: #111111;
-}
+    .review-nav:hover { background: #111111; transform: scale(1.04); }
+    .review-nav:disabled { opacity: .4; cursor: not-allowed; transform: none; }
 
-@media (max-width: 920px) {
-  .review-card {
-    min-width: calc((100% - 20px) / 2);
-    max-width: calc((100% - 20px) / 2);
-    flex: 0 0 calc((100% - 20px) / 2);
-  }
-}
+    .cta {
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(255, 31, 31, 0.72), rgba(255, 31, 31, 0.48)),
+        #110303;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-@media (max-width: 600px) {
-  .reviews-wrapper {
-    gap: 8px;
-  }
-
-  .review-card {
-    min-width: 100%;
-    max-width: 100%;
-    flex: 0 0 100%;
-  }
-
-  .review-photo {
-    height: 240px;
-  }
-
-  .review-nav {
-    width: 38px;
-    height: 38px;
-    font-size: 18px;
-  }
-}
-/* ----- КІНЕЦЬ ЗМІН ПО ВІДГУКАХ ----- */
+    footer {
+      padding: 30px 0 110px;
+      color: #adadc0;
+    }
 
     .socials {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 22px;
+      margin-top: 18px;
     }
+
     .socials a {
       padding: 12px 16px;
-      border: 1px solid rgba(255, 20, 20, 0.679);
+      border: 1px solid var(--border);
       border-radius: 12px;
       background: #080808;
-    }
-    .cta {
-      text-align: center;
-      background: linear-gradient(180deg, rgba(255, 20, 20, 0.679),  rgba(255, 20, 20, 0.679));
-      border-top: 1px solid  rgba(255, 20, 20, 0.679);
-      border-bottom: 1px solid  rgba(255, 20, 20, 0.679);
-    }
-    footer {
-      padding: 28px 0 40px;
-      color: #adadc0;
+      transition: background .2s ease, transform .2s ease;
     }
 
-    @media (max-width: 920px) {
-      .hero-grid, .grid-3, .grid-2 {
+    .socials a:hover {
+      background: #101010;
+      transform: translateY(-2px);
+    }
+
+    .mobile-cta-bar {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 1000;
+      display: none;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(8, 8, 8, 0.95);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,.45);
+    }
+
+    .mobile-cta-bar .btn {
+      flex: 1;
+      min-height: 50px;
+      padding-inline: 12px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2 {
         grid-template-columns: 1fr;
       }
-      .hero h1 { font-size: 40px; }
-      .section-title { font-size: 30px; }
+
+      .hero {
+        min-height: auto;
+        padding-top: 28px;
+      }
+
+      .hero h1 {
+        max-width: 100%;
+      }
+
+      .hero-card {
+        max-width: 680px;
+      }
+
+      .review-card {
+        min-width: calc((100% - 20px) / 2);
+        flex: 0 0 calc((100% - 20px) / 2);
+      }
     }
 
-   
-    
+    @media (max-width: 700px) {
+      .container {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+
+      .section-subtitle {
+        font-size: 15px;
+        margin-bottom: 24px;
+      }
+
+      .hero {
+        padding-top: 20px;
+      }
+
+      .hero-grid {
+        gap: 22px;
+      }
+
+      .eyebrow {
+        font-size: 13px;
+        margin-bottom: 14px;
+      }
+
+      .hero p {
+        margin-bottom: 20px;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .hero-card,
+      .info-card,
+      .case-card,
+      .step,
+      .faq-item {
+        border-radius: 18px;
+      }
+
+      .hero-card,
+      .info-card,
+      .case-card,
+      .step,
+      .faq-item {
+        padding: 18px;
+      }
+
+      .reviews-shell {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .reviews-controls {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .review-card {
+        min-width: 100%;
+        flex: 0 0 100%;
+      }
+
+      .review-photo {
+        aspect-ratio: 3 / 4;
+      }
+
+      .mobile-cta-bar {
+        display: flex;
+      }
+
+      footer {
+        padding-bottom: 120px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .section-title {
+        font-size: 28px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero-card h3 {
+        font-size: 24px;
+      }
+
+      input, textarea, select {
+        padding: 14px;
+      }
+    }
   </style>
 </head>
-
 <body>
 
   <section class="hero">
@@ -299,10 +539,12 @@
         <span class="eyebrow">DarkTarget Lab</span>
         <h1>Заливаємо те, що не можуть інші — без банів і з прогнозованим результатом</h1>
         <p>Запускаємо трафік у складних і сірих нішах. Даємо не просто охоплення, а реальні заявки та стабільний результат.</p>
+
         <div class="hero-actions">
           <a href="#lead-form" class="btn btn-primary">Залишити заявку</a>
-          <a href="https://choko.link/darktargetlab" class="btn btn-outline" target="_blank">Написати в Telegram</a>
+          <a href="https://choko.link/darktargetlab" class="btn btn-outline" target="_blank" rel="noopener">Написати в Telegram</a>
         </div>
+
         <ul class="hero-points">
           <li>Отримай перші ліди вже за 48 год</li>
           <li>Обхід блоків та модерації</li>
@@ -310,19 +552,23 @@
         </ul>
       </div>
 
-       <div class="hero-card" id="lead-form">
+      <div class="hero-card" id="lead-form">
         <h3>Швидка заявка</h3>
+        <span class="muted">Коротко напиши, куди потрібен трафік, і залиш свій Telegram.</span>
+
         <form id="leadForm">
           <div class="form-group">
             <label for="traffic">Куди потрібен трафік?</label>
             <input type="text" id="traffic" name="traffic" placeholder="Наприклад: Telegram-канал, вакансії, беттінг" />
           </div>
+
           <div class="form-group">
             <label for="telegram">Нік Telegram</label>
             <input type="text" id="telegram" name="telegram" placeholder="@username" />
           </div>
+
           <button type="submit" class="btn btn-primary" style="width:100%;">Відправити</button>
-          <p id="formMessage" style="margin-top:12px;font-size:14px;color:#cfcfe6;"></p>
+          <p id="formMessage" class="form-note"></p>
         </form>
       </div>
     </div>
@@ -332,6 +578,7 @@
     <div class="container">
       <h2 class="section-title">Про нас</h2>
       <p class="section-subtitle">DarkTarget Lab — команда, яка працює там, де інші не можуть. Ми не експериментуємо — ми масштабуємо те, що вже працює.</p>
+
       <div class="grid-3">
         <div class="info-card">
           <h3>Сірі ніші</h3>
@@ -353,6 +600,7 @@
     <div class="container">
       <h2 class="section-title">Для кого</h2>
       <p class="section-subtitle">Ми підходимо, якщо тобі потрібен стабільний потік заявок, людей або трафіку туди, де стандартна реклама не дає результату.</p>
+
       <div class="grid-2">
         <div class="info-card">
           <ul class="check-list">
@@ -372,63 +620,38 @@
     </div>
   </section>
 
- <section class="section">
-  <div class="container">
-    <h2 class="section-title">Відгуки</h2>
-    <p class="section-subtitle">Реальні повідомлення та відгуки клієнтів</p>
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Відгуки</h2>
+      <p class="section-subtitle">Реальні повідомлення та відгуки клієнтів</p>
 
-    <div class="reviews-wrapper">
-      <button class="review-nav" id="prevReview">&#10094;</button>
+      <div class="reviews-shell">
+        <button class="review-nav" id="prevReview" aria-label="Попередній відгук">&#10094;</button>
 
-      <div class="reviews-slider">
-        <div class="reviews-row" id="reviewsRow">
-          <div class="review-card">
-            <img src="review1.jpg" alt="Відгук 1" class="review-photo">
-          </div>
-
-          <div class="review-card">
-            <img src="review2.jpg" alt="Відгук 2" class="review-photo">
-          </div>
-
-          <div class="review-card">
-            <img src="review3.jpg" alt="Відгук 3" class="review-photo">
-          </div>
-
-          <div class="review-card">
-            <img src="review4.jpg" alt="Відгук 4" class="review-photo">
-          </div>
-
-          <div class="review-card">
-            <img src="review5.jpg" alt="Відгук 5" class="review-photo">
-          </div>
-
-          <div class="review-card">
-            <img src="review6.jpg" alt="Відгук 6" class="review-photo">
-          </div>
-
-          <div class="review-card">
-            <img src="review7.jpg" alt="Відгук 7" class="review-photo">
+        <div class="reviews-slider">
+          <div class="reviews-row" id="reviewsRow">
+            <div class="review-card"><img src="review1.jpg" alt="Відгук 1" class="review-photo"></div>
+            <div class="review-card"><img src="review2.jpg" alt="Відгук 2" class="review-photo"></div>
+            <div class="review-card"><img src="review3.jpg" alt="Відгук 3" class="review-photo"></div>
+            <div class="review-card"><img src="review4.jpg" alt="Відгук 4" class="review-photo"></div>
+            <div class="review-card"><img src="review5.jpg" alt="Відгук 5" class="review-photo"></div>
+            <div class="review-card"><img src="review6.jpg" alt="Відгук 6" class="review-photo"></div>
+            <div class="review-card"><img src="review7.jpg" alt="Відгук 7" class="review-photo"></div>
           </div>
         </div>
+
+        <button class="review-nav" id="nextReview" aria-label="Наступний відгук">&#10095;</button>
       </div>
 
-      <button class="review-nav" id="nextReview">&#10095;</button>
+      <div class="reviews-controls" aria-hidden="true"></div>
     </div>
-  </div>
-</section>
-     
-       
-        </div>
-      </div>
-      <button class="review-nav" id="nextReview">&#10095;</button>
-    </div>
-  </div>
-</section>
+  </section>
 
   <section class="section">
     <div class="container">
       <h2 class="section-title">Кейси</h2>
       <p class="section-subtitle">Результати, які ми показуємо — це реальні кейси клієнтів. За твоїм файлом тут має бути 5–8 кейсів, тому я залишив готову сітку.</p>
+
       <div class="grid-2">
         <div class="case-card">
           <h3>Кейс 1 — Найм персоналу</h3>
@@ -467,6 +690,7 @@
   <section class="section">
     <div class="container">
       <h2 class="section-title">Як ми працюємо</h2>
+
       <div class="grid-3">
         <div class="step">
           <h3>1. Аналіз</h3>
@@ -488,9 +712,10 @@
     <div class="container">
       <h2 class="section-title">Готові дати перші ліди вже за 48 год?</h2>
       <p class="section-subtitle" style="margin-inline:auto;">Залиш заявку або переходь одразу в Telegram — розберемо, куди тобі потрібен трафік і як це краще запустити.</p>
+
       <div class="hero-actions" style="justify-content:center;">
         <a href="#lead-form" class="btn btn-primary">Залишити заявку</a>
-        <a href="https://choko.link/darktargetlab" class="btn btn-outline" target="_blank">Написати в Telegram</a>
+        <a href="https://choko.link/darktargetlab" class="btn btn-outline" target="_blank" rel="noopener">Написати в Telegram</a>
       </div>
     </div>
   </section>
@@ -498,6 +723,7 @@
   <section class="section">
     <div class="container">
       <h2 class="section-title">FAQ</h2>
+
       <div class="grid-2">
         <div class="faq-item">
           <h3>Який бюджет потрібен?</h3>
@@ -523,50 +749,76 @@
     <div class="container">
       <p>DarkTarget Lab © 2026</p>
       <div class="socials">
-        <a href="https://www.instagram.com/darktarget_lab?igsh=azg5eHZ1dTZyZDU5">Instagram</a>
-        <a href="https://www.facebook.com/profile.php?id=61584835853313&locale=uk_UA">Facebook</a>
-        <a href="https://choko.link/darktargetlab">Telegram</a>
+        <a href="https://www.instagram.com/darktarget_lab?igsh=azg5eHZ1dTZyZDU5" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=61584835853313&locale=uk_UA" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://choko.link/darktargetlab" target="_blank" rel="noopener">Telegram</a>
       </div>
     </div>
   </footer>
 
+  <div class="mobile-cta-bar">
+    <a href="#lead-form" class="btn btn-primary">Заявка</a>
+    <a href="https://choko.link/darktargetlab" class="btn btn-outline" target="_blank" rel="noopener">Telegram</a>
+  </div>
+
   <script>
-  const reviewsRow = document.getElementById('reviewsRow');
-  const prevReview = document.getElementById('prevReview');
-  const nextReview = document.getElementById('nextReview');
-  const reviewCards = document.querySelectorAll('.review-card');
+    const reviewsRow = document.getElementById('reviewsRow');
+    const prevReview = document.getElementById('prevReview');
+    const nextReview = document.getElementById('nextReview');
+    const reviewCards = document.querySelectorAll('.review-card');
 
-  let currentIndex = 0;
+    let currentIndex = 0;
 
-  function getVisibleCards() {
-    if (window.innerWidth <= 600) return 1;
-    if (window.innerWidth <= 920) return 2;
-    return 4;
-  }
-
-  function updateSlider() {
-    const cardWidth = reviewCards[0].offsetWidth + 20;
-    reviewsRow.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-  }
-
-  nextReview.addEventListener('click', () => {
-    const visibleCards = getVisibleCards();
-    const maxIndex = Math.max(0, reviewCards.length - visibleCards);
-
-    if (currentIndex < maxIndex) {
-      currentIndex++;
-      updateSlider();
+    function getVisibleCards() {
+      if (window.innerWidth <= 700) return 1;
+      if (window.innerWidth <= 980) return 2;
+      return 4;
     }
-  });
 
-  prevReview.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateSlider();
+    function getGap() {
+      return 20;
     }
-  });
 
-  window.addEventListener('resize', updateSlider);
-</script>
+    function updateSlider() {
+      if (!reviewCards.length) return;
+
+      const visibleCards = getVisibleCards();
+      const maxIndex = Math.max(0, reviewCards.length - visibleCards);
+      currentIndex = Math.min(currentIndex, maxIndex);
+
+      const cardWidth = reviewCards[0].offsetWidth + getGap();
+      reviewsRow.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+
+      prevReview.disabled = currentIndex === 0;
+      nextReview.disabled = currentIndex >= maxIndex;
+    }
+
+    nextReview.addEventListener('click', () => {
+      const visibleCards = getVisibleCards();
+      const maxIndex = Math.max(0, reviewCards.length - visibleCards);
+      if (currentIndex < maxIndex) {
+        currentIndex++;
+        updateSlider();
+      }
+    });
+
+    prevReview.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlider();
+      }
+    });
+
+    window.addEventListener('resize', updateSlider);
+    window.addEventListener('load', updateSlider);
+
+    const leadForm = document.getElementById('leadForm');
+    const formMessage = document.getElementById('formMessage');
+
+    leadForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      formMessage.textContent = 'Форма готова. Коли підключиш відправку на пошту або в Telegram-бота, тут буде підтвердження заявки.';
+    });
+  </script>
 </body>
 </html>
