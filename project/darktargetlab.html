@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -5,256 +6,292 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DarkTarget Lab</title>
   <style>
-    /* --- Базові стилі --- */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background: #000000;
       color: #ffffff;
-      line-height: 1.5;
-      overflow-x: hidden;
+      line-height: 1.6;
     }
     a { text-decoration: none; color: inherit; }
-    
     .container {
-      width: min(1200px, 90%);
+      width: min(1120px, 92%);
       margin: 0 auto;
     }
-
-    /* --- Кнопки --- */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px 28px;
+      display: inline-block;
+      padding: 14px 24px;
       border-radius: 12px;
       font-weight: 700;
-      transition: all 0.3s ease;
+      transition: 0.2s ease;
       border: none;
       cursor: pointer;
-      text-align: center;
-      font-size: 16px;
     }
     .btn-primary {
       background: #ff1f1f;
       color: white;
-      box-shadow: 0 4px 15px rgba(255, 31, 31, 0.3);
     }
-    .btn-primary:hover { transform: translateY(-2px); background: #e61919; }
-    
+    .btn-primary:hover { transform: translateY(-2px); }
     .btn-outline {
       background: transparent;
-      border: 2px solid #ff1f1f;
+      border: 1px solid #ff1f1f;
       color: #fff;
     }
-    .btn-outline:hover { background: rgba(255, 31, 31, 0.1); }
-
-    /* --- Секції --- */
-    .section { padding: 80px 0; }
+    .section {
+      padding: 72px 0;
+    }
     .section-title {
-      font-size: clamp(28px, 5vw, 42px);
-      margin-bottom: 16px;
-      line-height: 1.2;
+      font-size: 36px;
+      margin-bottom: 18px;
     }
     .section-subtitle {
       color: #cfcfe6;
-      max-width: 700px;
-      margin-bottom: 40px;
-      font-size: clamp(16px, 2vw, 18px);
+      max-width: 720px;
+      margin-bottom: 36px;
     }
-
-    /* --- Hero Секція --- */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      background: radial-gradient(circle at top right, rgba(255, 20, 20, 0.2), transparent 40%), #000000;
-      padding: 100px 0 60px;
+      background: radial-gradient(circle at top right,  rgba(255, 20, 20, 0.679), transparent 35%), #000000;
     }
     .hero-grid {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
-      gap: 60px;
+      gap: 40px;
       align-items: center;
     }
     .eyebrow {
       display: inline-block;
-      padding: 6px 16px;
-      border: 1px solid #ff1f1f;
-      border-radius: 100px;
+      padding: 8px 12px;
+      border: 1px solid  rgba(255, 20, 20, 0.679);
+      border-radius: 999px;
       color: #ff1f1f;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
       font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
     }
     .hero h1 {
-      font-size: clamp(32px, 6vw, 64px);
+      font-size: 56px;
       line-height: 1.1;
-      margin-bottom: 24px;
-      font-weight: 800;
+      margin-bottom: 18px;
     }
     .hero p {
-      font-size: clamp(18px, 2vw, 22px);
+      font-size: 20px;
       color: #d8d8e7;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
+      max-width: 620px;
     }
     .hero-actions {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
     .hero-points {
       list-style: none;
       display: grid;
-      gap: 12px;
+      gap: 10px;
       color: #d7d7e3;
     }
-    .hero-points li::before {
-      content: '⚡';
-      margin-right: 10px;
-      color: #ff1f1f;
+    .hero-card,
+    .info-card,
+    .review-card,
+    .case-card,
+    .step,
+    .faq-item {
+      background: #080808;
+      border: 1px solid rgba(255, 20, 20, 0.679);
+      border-radius: 20px;
+      padding: 24px;
     }
-
-    /* --- Картки та Форма --- */
-    .hero-card, .info-card, .case-card, .step, .faq-item {
-      background: #0a0a0a;
-      border: 1px solid rgba(255, 31, 31, 0.2);
-      border-radius: 24px;
-      padding: 32px;
-      height: 100%;
-      transition: border 0.3s ease;
-    }
-    .hero-card:hover, .info-card:hover { border-color: rgba(255, 31, 31, 0.6); }
-
-    .form-group { margin-bottom: 20px; }
-    label { display: block; margin-bottom: 8px; color: #cfcfe6; font-size: 14px; }
-    input {
-      width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid #222;
-      background: #111;
-      color: #fff;
-      font-size: 16px;
-    }
-    input:focus { border-color: #ff1f1f; outline: none; }
-
-    /* --- Сітки --- */
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-
-    .check-list { list-style: none; display: grid; gap: 16px; }
-    .check-list li::before { content: '✔'; color: #ff1f1f; font-weight: bold; margin-right: 10px; }
-
-    .case-metric {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 8px 16px;
-      border-radius: 100px;
-      background: rgba(255, 31, 31, 0.1);
-      color: #ff1f1f;
-      font-weight: 700;
+    .hero-card h3 { margin-bottom: 12px; }
+    .form-group { margin-bottom: 16px; }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #cfcfe6;
       font-size: 14px;
     }
-
-    /* --- Слайдер відгуків --- */
-    .reviews-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .reviews-slider { overflow: hidden; width: 100%; cursor: grab; }
-    .reviews-slider:active { cursor: grabbing; }
-    .reviews-row { display: flex; gap: 20px; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-    
-    .review-card {
-      min-width: calc((100% - 60px) / 4);
-      flex: 0 0 calc((100% - 60px) / 4);
-    }
-    .review-photo {
+    input, textarea, select {
       width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      border-radius: 16px;
-      border: 1px solid #222;
-      background: #111;
-    }
-
-    .review-nav {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1px solid #333;
-      background: #111;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: #0d0d12;
       color: #fff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
+      outline: none;
     }
-    .review-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .info-card h3,
+    .review-card h3,
+    .case-card h3,
+    .step h3,
+    .faq-item h3 {
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+    .muted { color: #c8c8d8; }
+    .check-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .check-list li::before {
+      content: '✔ ';
+      color: #ff1f1f;
+      font-weight: bold;
+    }
+    .review-card p,
+    .case-card p,
+    .faq-item p,
+    .info-card p,
+    .step p {
+      color: #d5d5df;
+    }
+    .case-metric {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #de151524;
+      color: #ffe5e5;
+      font-weight: 700;
+    }
 
-    /* --- CTA --- */
-    .cta {
-      text-align: center;
-      background: linear-gradient(rgba(255, 31, 31, 0.15), transparent);
-      border-top: 1px solid rgba(255, 31, 31, 0.3);
-    }
+  /* ----- ЗМІНЕНО ТІЛЬКИ ВІДГУКИ ----- */
+.reviews-wrapper {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
-    /* --- АДАПТАЦІЯ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ --- */
-    @media (max-width: 1024px) {
-      .review-card {
-        min-width: calc((100% - 20px) / 2);
-        flex: 0 0 calc((100% - 20px) / 2);
-      }
-    }
+.reviews-slider {
+  overflow: hidden;
+  width: 100%;
+}
 
-    @media (max-width: 768px) {
-      .section { padding: 60px 0; }
-      .hero { padding-top: 80px; text-align: center; }
-      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-      .hero-actions { justify-content: center; }
-      .hero-actions .btn { width: 100%; }
-      .hero-points { justify-content: center; text-align: left; max-width: 300px; margin: 0 auto; }
-      
-      .grid-3, .grid-2 { grid-template-columns: 1fr; gap: 16px; }
-      
-      .review-card {
-        min-width: 100%;
-        flex: 0 0 100%;
-      }
-      .review-nav { display: none; } /* На мобільних краще свайп */
-      
-      .footer-content { text-align: center; }
-      .socials { justify-content: center; }
-    }
+.reviews-row {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.5s ease;
+}
 
-    footer {
-      padding: 40px 0;
-      border-top: 1px solid #111;
-      text-align: center;
-    }
+.review-card {
+  min-width: calc((100% - 120px) / 4);
+  max-width: calc((100% - 120px) / 4);
+  flex: 0 0 calc((100% - 120px) / 4);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.review-photo {
+  width: 100%;
+  height: 190px;
+  object-fit: contain;
+  border-radius: 14px;
+  display: block;
+  background: #050505;
+  border: 1px solid rgba(255, 20, 20, 0.679);
+}
+
+.review-nav {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 20, 20, 0.679);
+  background: #080808;
+  color: #ffffff;
+  font-size: 22px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.review-nav:hover {
+  background: #111111;
+}
+
+@media (max-width: 920px) {
+  .review-card {
+    min-width: calc((100% - 20px) / 2);
+    max-width: calc((100% - 20px) / 2);
+    flex: 0 0 calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width: 600px) {
+  .reviews-wrapper {
+    gap: 8px;
+  }
+
+  .review-card {
+    min-width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .review-photo {
+    height: 240px;
+  }
+
+  .review-nav {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+}
+/* ----- КІНЕЦЬ ЗМІН ПО ВІДГУКАХ ----- */
+
     .socials {
       display: flex;
       gap: 12px;
-      justify-content: center;
-      margin-top: 20px;
       flex-wrap: wrap;
+      margin-top: 22px;
     }
     .socials a {
-      padding: 10px 20px;
-      border-radius: 10px;
-      background: #111;
-      font-size: 14px;
-      border: 1px solid #222;
-      transition: 0.3s;
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 20, 20, 0.679);
+      border-radius: 12px;
+      background: #080808;
     }
-    .socials a:hover { border-color: #ff1f1f; color: #ff1f1f; }
+    .cta {
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255, 20, 20, 0.679),  rgba(255, 20, 20, 0.679));
+      border-top: 1px solid  rgba(255, 20, 20, 0.679);
+      border-bottom: 1px solid  rgba(255, 20, 20, 0.679);
+    }
+    footer {
+      padding: 28px 0 40px;
+      color: #adadc0;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid, .grid-3, .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 { font-size: 40px; }
+      .section-title { font-size: 30px; }
+    }
+
+   @media (max-width: 600px) {
+  .hero {
+    background: radial-gradient(circle at top right, rgba(255, 20, 20, 0.12), transparent 16%), #000000;
+  }
+}
+    
   </style>
 </head>
 
@@ -264,31 +301,32 @@
     <div class="container hero-grid">
       <div>
         <span class="eyebrow">DarkTarget Lab</span>
-        <h1>Заливаємо те, що не можуть інші</h1>
-        <p>Результативний трафік у складних нішах без банів та з прогнозованим KPI.</p>
+        <h1>Заливаємо те, що не можуть інші — без банів і з прогнозованим результатом</h1>
+        <p>Запускаємо трафік у складних і сірих нішах. Даємо не просто охоплення, а реальні заявки та стабільний результат.</p>
         <div class="hero-actions">
           <a href="#lead-form" class="btn btn-primary">Залишити заявку</a>
-          <a href="https://t.me/darktargetlab" class="btn btn-outline" target="_blank">Telegram</a>
+          <a href="https://choko.link/darktargetlab" class="btn btn-outline" target="_blank">Написати в Telegram</a>
         </div>
         <ul class="hero-points">
-          <li>Перші ліди вже за 48 годин</li>
-          <li>Власна система обходу блокувань</li>
-          <li>Масштабування до будь-яких об'ємів</li>
+          <li>Отримай перші ліди вже за 48 год</li>
+          <li>Обхід блоків та модерації</li>
+          <li>Масштабування того, що вже працює</li>
         </ul>
       </div>
 
-      <div class="hero-card" id="lead-form">
-        <h3 style="margin-bottom: 20px;">Швидкий старт</h3>
+       <div class="hero-card" id="lead-form">
+        <h3>Швидка заявка</h3>
         <form id="leadForm">
           <div class="form-group">
-            <label>Куди потрібен трафік?</label>
-            <input type="text" placeholder="Ніша або посилання" required>
+            <label for="traffic">Куди потрібен трафік?</label>
+            <input type="text" id="traffic" name="traffic" placeholder="Наприклад: Telegram-канал, вакансії, беттінг" />
           </div>
           <div class="form-group">
-            <label>Ваш Telegram</label>
-            <input type="text" placeholder="@username" required>
+            <label for="telegram">Нік Telegram</label>
+            <input type="text" id="telegram" name="telegram" placeholder="@username" />
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">Отримати стратегію</button>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Відправити</button>
+          <p id="formMessage" style="margin-top:12px;font-size:14px;color:#cfcfe6;"></p>
         </form>
       </div>
     </div>
@@ -296,119 +334,238 @@
 
   <section class="section">
     <div class="container">
-      <h2 class="section-title">Чому ми?</h2>
-      <p class="section-subtitle">Ми не просто "налаштовуємо рекламу", ми забезпечуємо життєздатність вашого маркетингу в агресивному середовищі.</p>
+      <h2 class="section-title">Про нас</h2>
+      <p class="section-subtitle">DarkTarget Lab — команда, яка працює там, де інші не можуть. Ми не експериментуємо — ми масштабуємо те, що вже працює.</p>
       <div class="grid-3">
         <div class="info-card">
-          <h3>Експертиза в Grey</h3>
-          <p>Знаємо всі підводні камені FB, Google та In-app у складних вертикалях.</p>
+          <h3>Сірі ніші</h3>
+          <p>Працюємо з нішами, де класичний запуск реклами або не проходить, або швидко баниться.</p>
         </div>
         <div class="info-card">
-          <h3>Власні фарми</h3>
-          <p>Використовуємо власну інфраструктуру акаунтів, що гарантує стабільність заливу.</p>
+          <h3>Антибан підхід</h3>
+          <p>Обходимо блокування, модерацію та слабкі місця стандартних рекламних схем.</p>
         </div>
         <div class="info-card">
-          <h3>ROI орієнтованість</h3>
-          <p>Працюємо на ваш прибуток, а не на гарні звіти по охопленнях.</p>
+          <h3>Фокус на заявки</h3>
+          <p>Основна ціль — не покази, а реальні звернення, ліди та результат для бізнесу.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" style="background: #050505;">
+  <section class="section">
     <div class="container">
-      <h2 class="section-title">Відгуки клієнтів</h2>
-      <div class="reviews-wrapper">
-        <button class="review-nav" id="prevReview">&#10094;</button>
-        <div class="reviews-slider" id="sliderContainer">
-          <div class="reviews-row" id="reviewsRow">
-            <div class="review-card"><img src="review1.jpg" alt="Review" class="review-photo"></div>
-            <div class="review-card"><img src="review2.jpg" alt="Review" class="review-photo"></div>
-            <div class="review-card"><img src="review3.jpg" alt="Review" class="review-photo"></div>
-            <div class="review-card"><img src="review4.jpg" alt="Review" class="review-photo"></div>
-            <div class="review-card"><img src="review5.jpg" alt="Review" class="review-photo"></div>
-            <div class="review-card"><img src="review6.jpg" alt="Review" class="review-photo"></div>
-            <div class="review-card"><img src="review7.jpg" alt="Review" class="review-photo"></div>
+      <h2 class="section-title">Для кого</h2>
+      <p class="section-subtitle">Ми підходимо, якщо тобі потрібен стабільний потік заявок, людей або трафіку туди, де стандартна реклама не дає результату.</p>
+      <div class="grid-2">
+        <div class="info-card">
+          <ul class="check-list">
+            <li>Маєш офіс і потрібен постійний потік співробітників</li>
+            <li>Ллєш трафік у Telegram або ведеш канали</li>
+            <li>Працюєш у беттінгу або гемблінгу</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <ul class="check-list">
+            <li>Масштабуєш команду і не вистачає людей</li>
+            <li>Вже пробував рекламу і злив бюджет</li>
+            <li>Шукаєш прогнозований результат, а не «тест заради тесту»</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <section class="section">
+  <div class="container">
+    <h2 class="section-title">Відгуки</h2>
+    <p class="section-subtitle">Реальні повідомлення та відгуки клієнтів</p>
+
+    <div class="reviews-wrapper">
+      <button class="review-nav" id="prevReview">&#10094;</button>
+
+      <div class="reviews-slider">
+        <div class="reviews-row" id="reviewsRow">
+          <div class="review-card">
+            <img src="review1.jpg" alt="Відгук 1" class="review-photo">
+          </div>
+
+          <div class="review-card">
+            <img src="review2.jpg" alt="Відгук 2" class="review-photo">
+          </div>
+
+          <div class="review-card">
+            <img src="review3.jpg" alt="Відгук 3" class="review-photo">
+          </div>
+
+          <div class="review-card">
+            <img src="review4.jpg" alt="Відгук 4" class="review-photo">
+          </div>
+
+          <div class="review-card">
+            <img src="review5.jpg" alt="Відгук 5" class="review-photo">
+          </div>
+
+          <div class="review-card">
+            <img src="review6.jpg" alt="Відгук 6" class="review-photo">
+          </div>
+
+          <div class="review-card">
+            <img src="review7.jpg" alt="Відгук 7" class="review-photo">
           </div>
         </div>
-        <button class="review-nav" id="nextReview">&#10095;</button>
+      </div>
+
+      <button class="review-nav" id="nextReview">&#10095;</button>
+    </div>
+  </div>
+</section>
+     
+       
+       
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Кейси</h2>
+      <p class="section-subtitle">Результати, які ми показуємо — це реальні кейси клієнтів. За твоїм файлом тут має бути 5–8 кейсів, тому я залишив готову сітку.</p>
+      <div class="grid-2">
+        <div class="case-card">
+          <h3>Кейс 1 — Найм персоналу</h3>
+          <p>Ніша: рекрутинг / офіс. Опис: запустили трафік, відфільтрували нецільові заявки, вийшли на стабільний потік кандидатів.</p>
+          <span class="case-metric">Наприклад: 73 заявки за 10 днів</span>
+        </div>
+        <div class="case-card">
+          <h3>Кейс 2 — Telegram</h3>
+          <p>Ніша: залив у Telegram. Опис: знайшли зв'язку, обійшли блоки та отримали потрібний обсяг трафіку без просадки якості.</p>
+          <span class="case-metric">Наприклад: CPL нижче на 38%</span>
+        </div>
+        <div class="case-card">
+          <h3>Кейс 3 — Беттінг</h3>
+          <p>Ніша: беттінг. Опис: стабілізували рекламні кабінети, протестували офери та масштабуємо зв'язку.</p>
+          <span class="case-metric">Наприклад: ROI +27%</span>
+        </div>
+        <div class="case-card">
+          <h3>Кейс 4 — Гемблінг</h3>
+          <p>Ніша: гемблінг. Опис: дали прогнозований трафік і зменшили втрати на банах та невдалих креативах.</p>
+          <span class="case-metric">Наприклад: 1200+ лідів</span>
+        </div>
+        <div class="case-card">
+          <h3>Кейс 5 — Масштабування команди</h3>
+          <p>Ніша: пошук працівників. Опис: забезпечили стабільний набір людей через кілька джерел трафіку одночасно.</p>
+          <span class="case-metric">Наприклад: 45 кандидатів / тиждень</span>
+        </div>
+        <div class="case-card">
+          <h3>Кейс 6 — Повернення після зливу бюджету</h3>
+          <p>Ніша: клієнт уже мав невдалий досвід. Опис: перезапустили воронку, змінили підхід та вийшли на окупність.</p>
+          <span class="case-metric">Наприклад: Окупність за 14 днів</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Як ми працюємо</h2>
+      <div class="grid-3">
+        <div class="step">
+          <h3>1. Аналіз</h3>
+          <p>Дивимось нішу, обмеження, джерела трафіку та реалістичні KPI.</p>
+        </div>
+        <div class="step">
+          <h3>2. Запуск</h3>
+          <p>Готуємо зв'язки, форму, маршрут користувача та стартуємо тест.</p>
+        </div>
+        <div class="step">
+          <h3>3. Масштаб</h3>
+          <p>Відключаємо слабке, масштабуємо сильне, тримаємо прогнозований результат.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section cta">
     <div class="container">
-      <h2 class="section-title">Готові до масштабування?</h2>
-      <p class="section-subtitle" style="margin-inline: auto;">Обговоримо ваш проект сьогодні — запустимо трафік вже завтра.</p>
-      <div class="hero-actions" style="justify-content: center;">
-        <a href="#lead-form" class="btn btn-primary">Почати роботу</a>
-        <a href="https://t.me/darktargetlab" class="btn btn-outline">Написати власнику</a>
+      <h2 class="section-title">Готові дати перші ліди вже за 48 год?</h2>
+      <p class="section-subtitle" style="margin-inline:auto;">Залиш заявку або переходь одразу в Telegram — розберемо, куди тобі потрібен трафік і як це краще запустити.</p>
+      <div class="hero-actions" style="justify-content:center;">
+        <a href="#lead-form" class="btn btn-primary">Залишити заявку</a>
+        <a href="https://choko.link/darktargetlab" class="btn btn-outline" target="_blank">Написати в Telegram</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">FAQ</h2>
+      <div class="grid-2">
+        <div class="faq-item">
+          <h3>Який бюджет потрібен?</h3>
+          <p>від $600+</p>
+        </div>
+        <div class="faq-item">
+          <h3>Чи буде бан?</h3>
+          <p>Ми використовуємо зв’язки, які мінімізують ризики.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Що потрібно від мене?</h3>
+          <p>Коротко описати, куди потрібен трафік, та залишити контакт у Telegram.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Коли будуть результати?</h3>
+          <p>Перші ліди за 48 год.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <p>DarkTarget Lab © 2026. Всі права захищені.</p>
+      <p>DarkTarget Lab © 2026</p>
       <div class="socials">
-        <a href="#">Instagram</a>
-        <a href="#">Facebook</a>
-        <a href="#">Telegram</a>
+        <a href="https://www.instagram.com/darktarget_lab?igsh=azg5eHZ1dTZyZDU5">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=61584835853313&locale=uk_UA">Facebook</a>
+        <a href="https://choko.link/darktargetlab">Telegram</a>
       </div>
     </div>
   </footer>
 
   <script>
-    const row = document.getElementById('reviewsRow');
-    const prev = document.getElementById('prevReview');
-    const next = document.getElementById('nextReview');
-    const slider = document.getElementById('sliderContainer');
-    
-    let currentIndex = 0;
+  const reviewsRow = document.getElementById('reviewsRow');
+  const prevReview = document.getElementById('prevReview');
+  const nextReview = document.getElementById('nextReview');
+  const reviewCards = document.querySelectorAll('.review-card');
 
-    function getItemsInView() {
-      if (window.innerWidth <= 768) return 1;
-      if (window.innerWidth <= 1024) return 2;
-      return 4;
-    }
+  let currentIndex = 0;
 
-    function updateSlider() {
-      const itemWidth = document.querySelector('.review-card').offsetWidth + 20;
-      row.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-      
-      prev.disabled = currentIndex === 0;
-      next.disabled = currentIndex >= (row.children.length - getItemsInView());
-    }
+  function getVisibleCards() {
+    if (window.innerWidth <= 600) return 1;
+    if (window.innerWidth <= 920) return 2;
+    return 4;
+  }
 
-    next.addEventListener('click', () => {
-      if (currentIndex < row.children.length - getItemsInView()) {
-        currentIndex++;
-        updateSlider();
-      }
-    });
+  function updateSlider() {
+    const cardWidth = reviewCards[0].offsetWidth + 20;
+    reviewsRow.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+  }
 
-    prev.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateSlider();
-      }
-    });
+  nextReview.addEventListener('click', () => {
+    const visibleCards = getVisibleCards();
+    const maxIndex = Math.max(0, reviewCards.length - visibleCards);
 
-    // Свайпи для мобільних
-    let startX = 0;
-    slider.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    slider.addEventListener('touchend', e => {
-      const endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) next.click();
-      if (endX - startX > 50) prev.click();
-    });
-
-    window.addEventListener('resize', () => {
-      currentIndex = 0;
+    if (currentIndex < maxIndex) {
+      currentIndex++;
       updateSlider();
-    });
+    }
+  });
 
-    updateSlider();
-  </script>
+  prevReview.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSlider();
+    }
+  });
+
+  window.addEventListener('resize', updateSlider);
+</script>
 </body>
 </html>
